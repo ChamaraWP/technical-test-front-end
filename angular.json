@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "technical-test-front-end"
+  "defaultProject": "technical-test-front-end",
+  "cli": {
+    "analytics": "ab97340f-fde5-492d-af24-0eaf0950f952"
+  }
 }
