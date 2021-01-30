@@ -1,13 +1,41 @@
 <div class="main-section d-flex">
     
     <div class="hero-title-section">
-        <h1 class="title">Pay any way you want.</h1>
-        <p class="subtitle">Complete you payment journey with few simple steps.<br>we don't charge any hidden fees.</p>
-        <button type="button" class="btn btn-primary btn-lg custom-button" (click)="onStartButtonClick()">Start here</button>
+        <div *ngIf="!userCreditCardInfo">
+            <h1 class="title">Pay any way you want.</h1>
+            <p class="subtitle">Complete you payment journey with few simple steps.<br>we don't charge any hidden fees.</p>
+            <button type="button" class="btn btn-primary btn-lg custom-button" (click)="onStartButtonClick()">Start here</button>
+        </div>
+
+        <div class="px-3 w-100 d-flex flex-column align-items-center" *ngIf="userCreditCardInfo">
+            <h3 class="py-3">Your Payment Summery</h3>
+            <div class="d-flex flex-wrap justify-content-between record">
+                <label for="" class="mr-3 muted-text text">Card Holder Name :</label> <p class="text"> {{userCreditCardInfo.cardHolder | titlecase}}</p>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between record">
+                <label for="" class="mr-3 muted-text text">Card Number :</label> <p class="text"> {{userCreditCardInfo.creditCardNumber | cardFormat}}</p>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between record">
+                <label for="" class="mr-3 muted-text text">Expiration Date :</label> <p class="text"> {{userCreditCardInfo.expirationDate}}</p>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between record">
+                <label for="" class="mr-3 muted-text text">VCC :</label> <p class="text"> {{userCreditCardInfo.securityCode? userCreditCardInfo.securityCode:'None'}}</p>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between record">
+                <label for="" class="mr-3 muted-text text">Amount :</label> <p class="text"> {{userCreditCardInfo.amount}}</p>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3" (click)="setStateEmpty()">Go to Home</button>
+        </div>
     </div>
     <div class="hero-img">
-        <!-- <img src="../assets/images/2889686.jpg" alt=""> -->
     </div>
+
+    <!-- <div class="payment-data-container">
+        <h3>Your Payment Summery</h3>
+        <div class="d-flex">
+
+        </div>
+    </div> -->
  
 
 </div>

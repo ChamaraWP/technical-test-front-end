@@ -1,61 +1,111 @@
 <div class="check-out-container container">
-    <h3 class="my-5">Payment Details</h3>
-
-    <form [formGroup]="creditCardForm" (ngSubmit)="onFormSubmit(creditCardForm.value)">
-        <div class="form-row mb-3">
-          <div class="form-group col-md-5">
-            <label for="cardNumber">Card Number</label>
-            <input type="text" class="form-control" id="cardNumber"  formControlName="cardNumber"  mask="0000-0000-0000-0000">
-            <div class="error-container" *ngIf="cardNumber.touched || cardNumber.dirty">
-                <div *ngIf="cardNumber.hasError('required')">
-                    Card number required!
-                </div>
-            </div>
+  <h3 class="pt-5">Payment Details</h3>
+  <hr class="my-5">
+  <form
+    [formGroup]="creditCardForm"
+    (ngSubmit)="onFormSubmit(creditCardForm.value)"
+  >
+    <div class="form-row mb-3">
+      <div class="form-group col-md-5">
+        <label for="cardNumber">Card Number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cardNumber"
+          formControlName="cardNumber"
+          mask="0000-0000-0000-0000"
+        />
+        <div
+          class="error-container"
+          *ngIf="cardNumber.touched || cardNumber.dirty"
+        >
+          <div *ngIf="cardNumber.hasError('required')">
+            Card number required!
           </div>
-          <div class="form-group col-md-5">
-            <label for="holderName">Card Holder Name</label>
-            <input type="text" class="form-control" id="holderName" formControlName="cardHolder">
-            <div class="error-container" *ngIf="cardHolder.touched || cardHolder.dirty">
-                <div *ngIf="cardHolder.hasError('required')">
-                    Card Holder Name Required!
-                </div>
-            </div>
+          <div *ngIf="cardNumber.hasError('minlength')">
+            Card Number must be at least 15 characters long.
           </div>
         </div>
-
-
-        <div class="form-row mb-3">
-            <div class="form-group col-md-5">
-              <label for="Expirtion Date">Expiration Date</label>
-              <input type="text" class="form-control" id="Expirtion Date" formControlName="expirationDate" mask="0000-M0-d0" placeholder="YYYY-MM-DD" [dropSpecialCharacters]="false">
-              <div class="error-container" *ngIf="expirationDate.touched || expirationDate.dirty">
-                <div *ngIf="expirationDate.hasError('required')">
-                    Expiration Date Required!
-                </div>
-                <div *ngIf="expirationDate.hasError('expirationLimit')">
-                    Invalid Expiration Date!
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group col-md-5">
-                <label for="vccCode">VCC/Security Code</label>
-                <input type="text" class="form-control" id="vccCode" formControlName="vcc" maxlength="3">
-            </div>
+      </div>
+      <div class="form-group col-md-5">
+        <label for="holderName">Card Holder Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="holderName"
+          formControlName="cardHolder"
+        />
+        <div
+          class="error-container"
+          *ngIf="cardHolder.touched || cardHolder.dirty"
+        >
+          <div *ngIf="cardHolder.hasError('required')">
+            Card Holder Name Required!
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="form-row mb-3">
-            <div class="form-group col-md-5">
-              <label for="amount">Amount</label>
-              <input type="text" class="form-control" id="amount" formControlName="amount">
-              <div class="error-container" *ngIf="priceAmount.touched || priceAmount.dirty">
-                <div *ngIf="priceAmount.hasError('required')">
-                    Amount Required!
-                </div>
-             </div>
-            </div>
+    <div class="form-row mb-3">
+      <div class="form-group col-md-5">
+        <label for="Expirtion Date">Expiration Date</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Expirtion Date"
+          formControlName="expirationDate"
+          placeholder="YYYY-MM-DD"
+          mask="0000-M0-d0"
+          [dropSpecialCharacters]="false"
+          [leadZeroDateTime]="true"
+        />
+        <div
+          class="error-container"
+          *ngIf="expirationDate.touched || expirationDate.dirty"
+        >
+          <div *ngIf="expirationDate.hasError('required')">
+            Expiration Date Required!
+          </div>
+          <div *ngIf="expirationDate.hasError('expirationLimit')">
+            Invalid Expiration Date!
+          </div>
         </div>
+      </div>
 
-        <button type="submit" class="btn btn-primary">Checkout</button>
-      </form>
+      <div class="form-group col-md-5">
+        <label for="vccCode">VCC/Security Code</label>
+        <input
+          type="text"
+          class="form-control"
+          id="vccCode"
+          formControlName="vcc"
+          maxlength="3"
+        />
+      </div>
+    </div>
+
+    <div class="form-row mb-3">
+      <div class="form-group col-md-5">
+        <label for="amount">Amount</label>
+        <input
+          type="text"
+          class="form-control"
+          id="amount"
+          formControlName="amount"
+          mask="separator.2" 
+          thousandSeparator=","
+          [dropSpecialCharacters]="false"
+        />
+        <div
+          class="error-container"
+          *ngIf="priceAmount.touched || priceAmount.dirty"
+        >
+          <div *ngIf="priceAmount.hasError('required')">Amount Required!</div>
+          <div *ngIf="priceAmount.hasError('minAmount')">Not a valid Amount</div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4" [disabled]="isSubmitting">Checkout</button>
+  </form>
 </div>
